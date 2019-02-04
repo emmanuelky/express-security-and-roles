@@ -1,6 +1,8 @@
 const express = require('express');
 const router  = express.Router();
 const Room = require('../models/Room')
+const {isConnected} = require('../middlewares')
+
 
 router.get('/', (req, res, next) => {
   res.render('index');
@@ -15,7 +17,7 @@ router.get('/rooms', (req,res,next)=>{
 })
 
 // TODO: make these routes only available if connected 
-router.get('/add-room', (req,res,next)=>{
+router.get('/add-room', isConnected, (req,res,next)=>{
   res.render('add-room')
 })
 router.post('/add-room', (req,res,next)=>{
